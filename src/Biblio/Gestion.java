@@ -26,6 +26,7 @@ public class Gestion {
         System.out.println(e);
         System.out.println(lec);
         System.out.println(loc);
+        System.out.println("lol");
 
     }
 
