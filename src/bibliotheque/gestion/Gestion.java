@@ -5,10 +5,7 @@ import bibliotheque.utilitaires.Utilitaire;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Gestion {
     Scanner sc = new Scanner(System.in);
@@ -222,25 +219,39 @@ public class Gestion {
                     do {
                         choix = Utilitaire.choixListe(langues);
                         if (choix == langues.size()) break;
-                        String languechoisi = langues.get(choix - 1);
-                        if (!((DVD) o).getAutresLangues().contains(languechoisi)) {
-                            ((DVD) o).getAutresLangues().add(languechoisi);
+                        Set<String> autresLangues = (Set<String>) ((DVD) o).getAutresLangues();
+                        String langueAjoutee = langues.get(choix - 1);
+                        if (!langueAjoutee.equals(langue)) {
+                            autresLangues.add(langueAjoutee);
+                        } else {
+                            System.out.println("La langue ajoutée est identique à la langue d'origine.");
                         }
                     } while (true);
                     System.out.println("sous-titres");
+                    Set<String> sousTitres = new HashSet<>();
                     do {
                         choix = Utilitaire.choixListe(langues);
                         if (choix == langues.size()) break;
-                        String langues_sous_titre = langues.get(choix - 1);
-                        if (!((DVD) o).getSousTitres().contains( langues_sous_titre )) {
-                            ((DVD) o).getSousTitres().add( langues_sous_titre );
+                        String langue_sous_titre = langues.get(choix - 1);
+                        if (!sousTitres.contains(langue_sous_titre)) {
+                            sousTitres.add(langue_sous_titre);
+                        } else {
+                            System.out.println("Le sous-titre ajouté est déjà présent.");
                         }
                     } while (true);
+                    ((DVD) o).setSousTitres((List<String>) sousTitres);
                     ;
                     break;
         }
         louv.add(o);
         System.out.println("ouvrage créé");
+        gestAuteurs();
+
+        Auteur dernierAuteur = laut.get(laut.size() - 1);
+        o.getLauteurs().add(dernierAuteur);
+        dernierAuteur.getLouvrage().add(o);
+
+        System.out.println("Auteur ajouté à la liste des auteurs.");
 
     }
 
