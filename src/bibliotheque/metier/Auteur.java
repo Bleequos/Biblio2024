@@ -11,11 +11,13 @@ public class Auteur {
     private  String nom,prenom;
     private String nationalite;
     private List<Ouvrage> louvrage = new ArrayList<>();
+    //TODO remplacer par set
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
         this.prenom = prenom;
         this.nationalite = nationalite;
+
     }
 
     public String getNom() {
