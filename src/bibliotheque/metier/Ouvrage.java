@@ -2,7 +2,9 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class Ouvrage {
     protected String titre;
@@ -13,10 +15,8 @@ public abstract class Ouvrage {
     protected String langue;
     protected String genre;
 
-    protected List<Auteur> lauteurs=new ArrayList<>();
-    //TODO remplacer par set
-    protected List<Exemplaire> lex = new ArrayList<>();
-    //TODO remplacer par set
+    protected Set<Auteur> lauteurs = new HashSet<>();
+    protected Set<Exemplaire> lex = new HashSet<>();
 
     public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;
@@ -85,19 +85,19 @@ public abstract class Ouvrage {
     }
 
     public List<Auteur> getLauteurs() {
-        return lauteurs;
+        return (List<Auteur>) lauteurs;
     }
 
     public void setLauteurs(List<Auteur> lauteurs) {
-        this.lauteurs = lauteurs;
+        this.lauteurs = (Set<Auteur>) lauteurs;
     }
 
     public List<Exemplaire> getLex() {
-        return lex;
+        return (List<Exemplaire>) lex;
     }
 
     public void setLex(List<Exemplaire> lex) {
-        this.lex = lex;
+        this.lex = (Set<Exemplaire>) lex;
     }
 
 
@@ -136,7 +136,7 @@ public abstract class Ouvrage {
         e.setOuvrage(null);
     }
     public List<Exemplaire>listerExemplaires(){
-        return lex;
+        return (List<Exemplaire>) lex;
     }
 
     public List<Exemplaire>listerExemplaires(boolean enLocation){
