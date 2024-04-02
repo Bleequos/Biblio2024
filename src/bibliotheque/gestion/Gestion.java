@@ -105,6 +105,29 @@ public class Gestion {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        List<Exemplaire> exemplairesEnLocation = new ArrayList<>();
+        for (Location loc : lloc) {
+            if (loc.getDateRestitution() == null) {
+                exemplairesEnLocation.add(loc.getExemplaire());
+            }
+        }
+        System.out.println("Exemplaires en location :");
+        for (int i = 0; i < exemplairesEnLocation.size(); i++) {
+            Exemplaire ex = exemplairesEnLocation.get(i);
+            System.out.println((i + 1) + ". " + ex.getMatricule() + " - " + ex.getOuvrage().getTitre());
+        }
+        int choix = choixListe(exemplairesEnLocation);
+        Exemplaire exemplaireARestituer = exemplairesEnLocation.get(choix - 1);
+        exemplaireARestituer.setLloc(null);
+        System.out.println("Voulez-vous changer l'état de cet exemplaire ? (o/n)");
+        String reponse = sc.next();
+        if (reponse.equalsIgnoreCase("o")) {
+            System.out.println("Nouvel état : ");
+            String nouvelEtat = sc.next();
+            exemplaireARestituer.modifierEtat(nouvelEtat);
+            System.out.println("État de l'exemplaire changé avec succès.");
+        }
+
     }
 
     private void gestLocations() {
@@ -159,6 +182,7 @@ public class Gestion {
         r.addExemplaire(lex.get(choix-1));
         //TODO attribuer par une boucle plusieurs exemplaires, les exemplaires sont triés par ordre de titre de l'ouvrage ,
         //  ne proposer que les exemplaires qui ne sont pas dans déjà présents dans ce rayon et qui ne sont dans aucun autre rayon
+
     }
 
     private void gestExemplaires() {
