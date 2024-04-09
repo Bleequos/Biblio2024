@@ -8,8 +8,8 @@ import static bibliotheque.metier.TypeOuvrage.LIVRE;
 public class Auteur {
     private  String nom,prenom;
     private String nationalite;
-
     private Set<Ouvrage> louvrage = new HashSet<>();
+
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
@@ -42,12 +42,12 @@ public class Auteur {
         this.nationalite = nationalite;
     }
 
-    public List<Ouvrage> getLouvrage() {
-        return (List<Ouvrage>) louvrage;
+    public Set<Ouvrage> getLouvrage() {
+        return louvrage;
     }
 
-    public void setLouvrage(List<Ouvrage> louvrage) {
-        this.louvrage = (Set<Ouvrage>) louvrage;
+    public void setLouvrage(Set<Ouvrage> louvrage) {
+        this.louvrage = louvrage;
     }
 
 
@@ -84,9 +84,9 @@ public class Auteur {
         o.getLauteurs().remove(this);
     }
 
-    public List<Ouvrage> listerOuvrages(){
+    public Set<Ouvrage> listerOuvrages(){
 
-        return (List<Ouvrage>) louvrage;
+        return louvrage;
     }
 
     public List<Ouvrage> listerOuvrages(TypeOuvrage to){
