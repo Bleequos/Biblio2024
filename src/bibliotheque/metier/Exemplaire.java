@@ -100,10 +100,6 @@ public class Exemplaire {
     }
     public List<Lecteur> lecteurs(){
         List<Lecteur> ll = new ArrayList<>();
-        for(Location l : lloc){
-            if(ll.contains(l)) continue; //par la suite utiliser set
-            ll.add(l.getLoueur());
-        }
         return null;
     }
 
@@ -129,9 +125,6 @@ public class Exemplaire {
 
 
     public boolean enLocation(){
-        if(lloc.isEmpty()) return false;
-        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
-        if(l.getDateRestitution()==null) return true;
         return false;
     }
 
