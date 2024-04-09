@@ -2,9 +2,7 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Exemplaire {
 
@@ -16,7 +14,7 @@ public class Exemplaire {
 
     private String etat;
 
-
+    private static final Map<Exemplaire, Lecteur> lex = new HashMap<>();
 
 
     public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
@@ -94,10 +92,6 @@ public class Exemplaire {
        setDescriptionEtat(etat);
     }
 
-    public Lecteur lecteurActuel(){
-
-        return null;
-    }
     public List<Lecteur> lecteurs(){
         List<Lecteur> ll = new ArrayList<>();
         return null;
@@ -124,8 +118,15 @@ public class Exemplaire {
 
 
 
-    public boolean enLocation(){
-        return false;
+    public boolean enLocation() {
+        return lex.containsKey(this);
+    }
+
+    public Lecteur lecteurActuel() {
+        if (enLocation()) {
+            return lex.get(this);
+        }
+        return null;
     }
 
 
