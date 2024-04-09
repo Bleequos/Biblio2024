@@ -110,13 +110,4 @@ public class Lecteur {
         return Objects.hash(numlecteur);
     }
 
-    public List<Exemplaire> listerExemplairesEnLocation(){
-        List<Exemplaire> lex = new ArrayList<>();
-        return lex;
-    }
-
-    public List<Exemplaire> listerExemplairesLoues(){
-        List<Exemplaire> lex = new ArrayList<>();
-       return lex;
-    }
 }
