@@ -80,11 +80,7 @@ public class Lecteur {
         this.tel = tel;
     }
 
-
-
-
-
-    @Override
+        @Override
     public String toString() {
         return "Lecteur{" +
                 "numlecteur=" + numlecteur +
