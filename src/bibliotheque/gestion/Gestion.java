@@ -43,7 +43,7 @@ public class Gestion {
         louv.add(d);
 
         a.addOuvrage(d);
-
+  //4
          a = new Auteur("Kubrick","Stanley","GB");
         laut.add(a);
 
