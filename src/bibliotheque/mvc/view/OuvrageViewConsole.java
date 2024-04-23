@@ -1,5 +1,6 @@
 package bibliotheque.mvc.view;
 
+import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeOuvrage;
@@ -144,16 +145,27 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
         TypeOuvrage[] tto = TypeOuvrage.values();
         List<TypeOuvrage> lto = new ArrayList<>(Arrays.asList(tto));
         int choix = Utilitaire.choixListe(lto);
-        Ouvrage a = null;
-        List<OuvrageFactory> lof = new ArrayList<>(Arrays.asList(new LivreFactory(),new CDFactory(),new DVDFactory()));
-        a = lof.get(choix-1).create();
-        //TODO affecter un ou plusieurs auteurs
-        //TODO trier les auteurs présentés par ordre de nom et prénom  ==>  classe anonyme
-        //TODO ne pas présenter les auteurs déjà enregistrés pour cet ouvrage
-        controller.add(a);
-    }
+        if (choix <= 0 || choix > lto.size()) {
+            System.out.println("Invalid choice, returning to menu.");
+            return;
+        }
 
-    protected void special() {
+        List<OuvrageFactory> lof = Arrays.asList(new LivreFactory(), new CDFactory(), new DVDFactory());
+        Ouvrage a = lof.get(choix - 1).create();
+
+
+        List<Auteur> availableAuthors = new ArrayList<>(controller.getAllAuthors()); // Assume this method exists
+        availableAuthors.removeIf(author -> a.getAuteurs().contains(author));
+
+        availableAuthors.sort(Comparator.comparing(Auteur::getNom).thenComparing(Auteur::getPrenom));
+
+        System.out.println("Choose one or more authors for the ouvrage. Enter indices separated by commas:");
+        int index = 1;
+        for (Auteur author : availableAuthors) {
+            System.out.println(index++ + ". "
+
+
+            protected void special() {
         int choix =  choixElt(la);
         Ouvrage o = la.get(choix-1);
 
