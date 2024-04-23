@@ -74,24 +74,61 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
 
 
     public void modifier() {
+        if (la.isEmpty()) {
+            System.out.println("No lecteurs available to modify.");
+            return;
+        }
+
         int choix = choixElt(la);
-        Lecteur l  = la.get(choix-1);
-         do {
-            try {
-                String nom = modifyIfNotBlank("nom", l.getNom());
-                String prenom = modifyIfNotBlank("prénom", l.getPrenom());
-                String mail = modifyIfNotBlank("nationalité", l.getMail());
-                l.setNom(nom);
-                l.setPrenom(prenom);
-                l.setMail(mail);
-                //TODO gérer autres valeurs
-                break;
-            } catch (Exception e) {
-                System.out.println("erreur :" + e);
+        if (choix <= 0 || choix > la.size()) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+
+        Lecteur l = la.get(choix - 1);
+
+        try {
+            // Updating basic information
+            String nom = modifyIfNotBlank("Enter new name (leave blank to keep current): ", l.getNom());
+            String prenom = modifyIfNotBlank("Enter new first name (leave blank to keep current): ", l.getPrenom());
+            String mail = modifyIfNotBlank("Enter new email (leave blank to keep current): ", l.getMail());
+
+            l.setNom(nom);
+            l.setPrenom(prenom);
+            l.setMail(mail);
+
+
+            // Updating the date of birth
+            System.out.println("Current date of birth: " + l.getDateNaissance());
+            String newDate = modifyIfNotBlank("Enter new date of birth (format: YYYY-MM-DD, leave blank to keep current): ", "");
+            if (!newDate.isEmpty()) {
+                LocalDate dateNaissance = LocalDate.parse(newDate);
+                l.setDateNaissance(dateNaissance);
             }
-        }while(true);
-        controller.update(l);
-   }
+
+            // Updating the address
+            String adresse = modifyIfNotBlank("Enter new address (leave blank to keep current): ", l.getAdresse());
+            l.setAdresse(adresse);
+
+            // Updating the telephone number
+            String tel = modifyIfNotBlank("Enter new telephone (leave blank to keep current): ", l.getTelephone());
+            l.setTelephone(tel);
+
+            // Committing the changes
+            controller.update(l);
+            System.out.println("Lecteur information updated successfully.");
+
+        } catch (Exception e) {
+            System.out.println("Error updating lecteur: " + e.getMessage());
+        }
+    }
+
+    private String modifyIfNotBlank(String message, String currentValue) {
+        System.out.println(message);
+        String input = sc.nextLine();
+        return input.isBlank() ? currentValue : input;
+    }
+
 
 
     public void ajouter() {
