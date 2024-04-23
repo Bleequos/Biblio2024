@@ -97,6 +97,14 @@ public class GestionOld {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+
+        int choix;
+        List<Exemplaire> lex2 = new ArrayList<>(lex);
+        Iterator<Exemplaire> itlex2 = lex2.iterator();
+        while(itlex2.hasNext()){
+            if(itlex2.next().enLocation()) itlex2.remove();
+        }
+
     }
 
     private void gestLocations() {
@@ -114,6 +122,13 @@ public class GestionOld {
         if(choix==0)return;
         Lecteur lec = llect.get(choix-1);
         LOCATIONS.put(ex,lec);
+        List<Exemplaire>  lex;
+        Iterator<Exemplaire> itLex2 = lex2.iterator();
+        while(itLex2.hasNext()){
+            Rayon ract = itLex2.next().getRayon();
+            if(lex2.equals(ract)) itLex2.remove();
+        }
+
     }
 
     private void gestLecteurs() {

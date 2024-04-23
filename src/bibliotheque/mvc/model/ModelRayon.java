@@ -1,18 +1,19 @@
 package bibliotheque.mvc.model;
 
-import bibliotheque.metier.Livre;
-import bibliotheque.metier.TypeLivre;
+import bibliotheque.metier.Exemplaire;
+import bibliotheque.metier.Rayon;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LivreModel extends DAOLivre {
+public  class ModelRayon extends DAO<Rayon> implements DAOSpecialRayon{
 
-    private List<Livre> ldatas = new ArrayList<>();
+    private List<Rayon> ldatas = new ArrayList<>();
+
 
     @Override
-    public Livre add(Livre elt) {
-        boolean present = ldatas.contains(elt);
+    public Rayon add( Rayon elt) {
+        boolean present =ldatas.contains(elt);
         if (!present) {
             ldatas.add(elt);
             notifyObservers();
@@ -21,14 +22,14 @@ public class LivreModel extends DAOLivre {
     }
 
     @Override
-    public boolean remove(Livre elt) {
+    public boolean remove( Rayon elt) {
         boolean ok = ldatas.remove(elt);
         notifyObservers();
         return ok;
     }
 
     @Override
-    public Livre update(Livre elt) {
+    public Rayon update(Rayon elt) {
         int p = ldatas.indexOf(elt);
         if (p < 0) return null;
         ldatas.set(p, elt);
@@ -37,25 +38,20 @@ public class LivreModel extends DAOLivre {
     }
 
     @Override
-    public Livre read(Livre rech) {
+    public Rayon read(Rayon rech) {
         int p = ldatas.indexOf(rech);
         if(p<0) return null;
         return ldatas.get(p);
     }
 
     @Override
-    public List<Livre> getAll() {
+    public List<Rayon> getAll() {
         return ldatas;
     }
 
+
     @Override
-    public List<Livre> listerLivre(TypeLivre tl) {
-        List<Livre> result = new ArrayList<>();
-        for (Livre livre : ldatas) {
-            if (livre.getIsbn().equals(tl)) {
-                result.add(livre);
-            }
-        }
-        return result;
+    public List<Exemplaire> listerExemplaires(Rayon r) {
+        return new ArrayList<>(r.listerExemplaires());
     }
 }

@@ -1,19 +1,17 @@
 package bibliotheque.mvc.model;
 
 import bibliotheque.metier.Lecteur;
-import bibliotheque.metier.Ouvrage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class LecteurModel extends DAOLecteur {
-
+public class ModelLecteur extends DAO<Lecteur> {
     private List<Lecteur> ldatas = new ArrayList<>();
 
+
     @Override
-    public Lecteur add(Lecteur elt) {
-        boolean present = ldatas.contains(elt);
+    public Lecteur add( Lecteur elt) {
+        boolean present =ldatas.contains(elt);
         if (!present) {
             ldatas.add(elt);
             notifyObservers();
@@ -22,7 +20,7 @@ public class LecteurModel extends DAOLecteur {
     }
 
     @Override
-    public boolean remove(Lecteur elt) {
+    public boolean remove( Lecteur elt) {
         boolean ok = ldatas.remove(elt);
         notifyObservers();
         return ok;
@@ -49,7 +47,4 @@ public class LecteurModel extends DAOLecteur {
         return ldatas;
     }
 
-    public Set<Ouvrage> listerOuvrages(Lecteur l) {
-        return l.listerOuvrages();
-    }
 }
