@@ -36,6 +36,7 @@
         public static  DAO<Rayon> rm;
         public static  AbstractView<Rayon> rv;
         public static  Controller<Rayon> rc;
+        public static AbstractView<Object> lecteur;
 
 
         public void gestion(){

@@ -71,4 +71,6 @@ public class Rayon {
     }
 
 
+    public <U> U getCode() {
+    }
 }

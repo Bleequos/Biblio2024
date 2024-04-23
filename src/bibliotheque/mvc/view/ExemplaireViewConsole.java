@@ -149,10 +149,30 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
     }
 
     private void louer(Exemplaire a) {
-        if (GestionMVC.LOCATIONS.containsKey(a)) {
-            affMsg("Cet exemplaire est déjà loué.");
+        List<Object> lecteurs = GestionMVC.lecteur.getAll();
+        if (lecteurs.isEmpty()) {
+            System.out.println("Aucun lecteur disponible pour la location.");
             return;
         }
+
+        System.out.println("Choisir un lecteur :");
+        for (int i = 0; i < lecteurs.size(); i++) {
+            System.out.println((i + 1) + ". " + lecteurs.get(i));
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        int choix = scanner.nextInt();
+
+
+        if (choix < 1 || choix > lecteurs.size()) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        Lecteur lecteurChoisi = (Lecteur) lecteurs.get(choix - 1);
+
+        System.out.println("Exemplaire " + a + " loué à " + lecteurChoisi.getNom());
+    }
 
         List<Lecteur> lecteurs = GestionMVC.lv.getAll();
         if (lecteurs.isEmpty()) {
