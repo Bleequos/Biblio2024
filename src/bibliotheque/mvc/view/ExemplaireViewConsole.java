@@ -1,9 +1,6 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Exemplaire;
-import bibliotheque.metier.Mail;
-import bibliotheque.metier.Ouvrage;
-import bibliotheque.metier.Rayon;
+import bibliotheque.metier.*;
 import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialExemplaire;
 
@@ -110,6 +107,11 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
                        return o1.getTitre().compareTo(o2.getTitre());
                    }
                });
+                lo.sort(Comparator.comparing(Ouvrage::getTitre));
+                affListe(lo);
+                lo.sort(Comparator.comparing(Rayon::getCodeRayon));
+                affListe(lo);
+
 
 
                 int ch = choixListe(lo);
@@ -124,6 +126,15 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
                     }
                 });
                 //TODO présenter les rayons par ordre de code ==> classe anonyme
+
+
+                lr.sort(Comparator.comparing(Rayon::getCodeRayon));
+                affListe(lr);
+                if (mat.isEmpty() || descr.isEmpty()) {
+                    System.out.println("Erreur : Le matricule et la description ne peuvent être vides.");
+                    return;
+                }
+
 
                 ch= choixListe(lr);
                 a.setRayon(lr.get(ch-1));
@@ -172,12 +183,40 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
    }
 
     private void louer(Exemplaire a) {
-        //TODO chosir un lecteur et enregistrer la location dans LOCATIONS
-        LecteurViewConsole
+        // Vérifier si l'exemplaire est déjà loué
+        if (GestionMVC.LOCATIONS.containsKey(a)) {
+            affMsg("Cet exemplaire est déjà loué.");
+            return;
+        }
 
+        // Afficher la liste des lecteurs disponibles
+        List<Lecteur> lecteurs = GestionMVC.lv.getAll();  // Supposons que getAll() récupère tous les lecteurs
+        if (lecteurs.isEmpty()) {
+            affMsg("Aucun lecteur disponible pour la location.");
+            return;
+        }
 
+        affMsg("Choisissez un lecteur pour la location:");
+        for (int i = 0; i < lecteurs.size(); i++) {
+            System.out.println((i + 1) + ". " + lecteurs.get(i).getNom() + " " + lecteurs.get(i).getPrenom());
+        }
 
+        // Lire le choix de l'utilisateur
+        int choix = sc.nextInt();
+        sc.nextLine();  // Consume the remaining newline
+        if (choix < 1 || choix > lecteurs.size()) {
+            affMsg("Choix invalide.");
+            return;
+        }
+
+        // Récupérer le lecteur choisi
+        Lecteur lecteurChoisi = lecteurs.get(choix - 1);
+
+        // Enregistrer la location
+        GestionMVC.LOCATIONS.put(a, lecteurChoisi);
+        affMsg("L'exemplaire " + a.getMatricule() + " est maintenant loué à " + lecteurChoisi.getNom() + " " + lecteurChoisi.getPrenom() + ".");
     }
+
 
 
     public void enLocation(Exemplaire ex) {

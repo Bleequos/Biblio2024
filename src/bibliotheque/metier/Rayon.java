@@ -42,7 +42,7 @@ public class Rayon {
         lex.remove(e);
         e.setRayon(null);
     }
-    public String getCodeRayon() {
+    public static String getCodeRayon() {
         return codeRayon;
     }
 

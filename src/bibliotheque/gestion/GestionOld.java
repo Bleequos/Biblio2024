@@ -96,16 +96,53 @@ public class GestionOld {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
-
-        int choix;
-        List<Exemplaire> lex2 = new ArrayList<>(lex);
-        Iterator<Exemplaire> itlex2 = lex2.iterator();
-        while(itlex2.hasNext()){
-            if(itlex2.next().enLocation()) itlex2.remove();
+        // Lister tous les exemplaires en location
+        List<Exemplaire> exemplairesEnLocation = new ArrayList<>();
+        for (Exemplaire ex : lex) {
+            if (ex.enLocation()) {
+                exemplairesEnLocation.add(ex);
+            }
         }
 
+        if (exemplairesEnLocation.isEmpty()) {
+            System.out.println("Aucun exemplaire n'est actuellement en location.");
+            return;
+        }
+
+        // Afficher les exemplaires en location
+        System.out.println("Exemplaires en location:");
+        int index = 1;
+        for (Exemplaire ex : exemplairesEnLocation) {
+            System.out.println(index++ + ". " + ex);
+        }
+
+        // Choisir un exemplaire à restituer
+        System.out.println("Choisissez un exemplaire à restituer (entrez le numéro):");
+        int choix = sc.nextInt();
+        sc.nextLine(); // Consommer la nouvelle ligne restante
+
+        if (choix < 1 || choix > exemplairesEnLocation.size()) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        Exemplaire exemplaireARestituer = exemplairesEnLocation.get(choix - 1);
+
+        // Enregistrer la restitution
+        LOCATIONS.remove(exemplaireARestituer);
+        System.out.println("Restitution enregistrée pour l'exemplaire: " + exemplaireARestituer.getMatricule());
+
+        // Optionnellement changer l'état de l'exemplaire
+        System.out.println("Voulez-vous changer l'état de l'exemplaire ? (o/n)");
+        String reponse = sc.nextLine();
+        if (reponse.equalsIgnoreCase("o")) {
+            System.out.println("Entrez le nouvel état de l'exemplaire:");
+            String nouvelEtat = sc.nextLine();
+            exemplaireARestituer.modifierEtat(nouvelEtat);
+            System.out.println("Nouvel état enregistré: " + nouvelEtat);
+        }
     }
+
 
     private void gestLocations() {
         int choix;
