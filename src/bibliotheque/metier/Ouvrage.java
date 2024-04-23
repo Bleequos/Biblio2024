@@ -1,10 +1,7 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Ouvrage {
     protected String titre;
@@ -147,5 +144,8 @@ public abstract class Ouvrage {
             if(ex.enLocation()==enLocation) lex2.add(ex);
         }
         return lex2;
+    }
+
+    public Collection<Object> getAuteurs() {
     }
 }

@@ -52,7 +52,7 @@
             om.addObserver(ov);
 
             lm = new ModelLecteur() ;
-            lv = new LecteurViewConsole();
+            lv = new LecteurController();
             lc = new LecteurController(lm,lv);//création et injection de dépendance
             lm.addObserver(lv);
 

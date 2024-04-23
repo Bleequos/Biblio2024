@@ -117,7 +117,7 @@ public class ExemplaireViewConsole extends AbstractView<Exemplaire> {
             int ch = choixListe(options);
             switch (ch) {
                 case 1:
-                    modifierEtat(a);
+                    Etat(a);
                     break;
                 case 2:
                     lecteurActuel(a);

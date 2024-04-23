@@ -7,10 +7,7 @@ import bibliotheque.metier.TypeOuvrage;
 import bibliotheque.mvc.controller.ControllerSpecialOuvrage;
 import bibliotheque.utilitaires.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
@@ -91,7 +88,8 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
 
     private void searchBooksByISBN(String isbn) {
         // Assume there's a method in the controller that can handle the search
-        List<Ouvrage> results = controller.(isbn);
+        String isbn1 = isbn;
+        List<Ouvrage> results =(isbn);
         if (results.isEmpty()) {
             System.out.println("No books found with ISBN: " + isbn);
         } else {
@@ -204,4 +202,7 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
     public void affList(List la) {
         affListe(la);
     }
+            private <__TMP__> __TMP__ exemplaires() {
+            }
 }
+

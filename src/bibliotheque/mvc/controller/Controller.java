@@ -34,4 +34,6 @@ public class Controller<T> {
         return  model.read(rech);
     }
 
+    public int getAllAuthors() {
+    }
 }
