@@ -3,7 +3,7 @@ package bibliotheque.metier;
 import java.util.*;
 
 public class Rayon {
-    private String codeRayon;
+    private static String codeRayon;
     private String genre;
     private Set<Exemplaire> lex = new HashSet<>();
 
